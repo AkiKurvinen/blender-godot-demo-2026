@@ -1,0 +1,29 @@
+:root{
+    --paper: #222;
+    --primary-main: rgb(0, 140, 255);
+    --primary-light: rgb(101, 255, 255);
+    --primary-contrastText: #222;
+}
+body{
+    background-color: var(--paper);
+    color: var(--primary-main);
+    font-family: Arial, Helvetica, sans-serif;
+}
+main{
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 2em;
+}
+a, a:visited{
+    color: var(--primary-contrastText);
+    background-color: var(--primary-main);
+    padding: 0.5em 1em;
+    text-decoration: none;
+}
+a:hover{
+    background-color: var(--primary-light);
+}
+h1, h2, h3,h4,h5,h6{
+    color: var(--primary-main);
+}
