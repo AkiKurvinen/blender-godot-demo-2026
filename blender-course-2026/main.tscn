@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://cpquiq1j0cy08"]
+
+[ext_resource type="Texture2D" uid="uid://drwk3gqk0g42k" path="res://citrus_orchard_road_puresky_1k.hdr" id="1_ig7tw"]
+[ext_resource type="Shader" uid="uid://252r74c0jdfm" path="res://water.gdshader" id="2_h2yge"]
+[ext_resource type="Texture2D" uid="uid://dki8rsqjn0rfx" path="res://water_normal_map.png" id="3_1bvp3"]
+[ext_resource type="Script" uid="uid://x7eirg0g71gt" path="res://tfc_controller.gd" id="4_lquwl"]
+[ext_resource type="Script" uid="uid://bjh4xyi5pvjgc" path="res://browser_input_fixes.gd" id="5_7mycd"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_lnab1"]
+panorama = ExtResource("1_ig7tw")
+
+[sub_resource type="Sky" id="Sky_lmm8e"]
+sky_material = SubResource("PanoramaSkyMaterial_lnab1")
+
+[sub_resource type="Environment" id="Environment_juj7h"]
+background_mode = 2
+background_energy_multiplier = 0.5
+sky = SubResource("Sky_lmm8e")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ig7tw"]
+render_priority = 0
+shader = ExtResource("2_h2yge")
+shader_parameter/water_color = Color(0, 0.35, 0.7, 1)
+shader_parameter/normal_map = ExtResource("3_1bvp3")
+shader_parameter/wave_speed = 0.05
+shader_parameter/wave_height = 0.1
+shader_parameter/reflection_strength = 0.5
+shader_parameter/uv_tiling = 4.0
+
+[node name="Node3D" type="Node3D" unique_id=2010011454]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1843992075]
+environment = SubResource("Environment_juj7h")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=968954249]
+size = Vector3(10, 1, 10)
+material = SubResource("ShaderMaterial_ig7tw")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=555762770]
+transform = Transform3D(0.8769717, 0.21344519, -0.43053645, 0, 0.8959395, 0.44417608, 0.480542, -0.3895299, 0.7857137, -4.00257, 3.1846793, 7.5481114)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1909401552]
+transform = Transform3D(-0.86602545, 0, 0.49999994, 0, 1, 0, -0.49999994, 0, -0.86602545, 0, 1.647898, 0)
+script = ExtResource("4_lquwl")
+
+[node name="Node3D" type="Node3D" parent="." unique_id=1596388401]
+script = ExtResource("5_7mycd")
