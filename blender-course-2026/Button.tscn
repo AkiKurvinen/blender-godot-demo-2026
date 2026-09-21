@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://p7r1shsnovkp"]
+
+[ext_resource type="PackedScene" uid="uid://stw7xruwfggy" path="res://default_button.glb" id="1_nhor4"]
+[ext_resource type="Script" uid="uid://rbulm66umnoi" path="res://button.gd" id="2_lc4xp"]
+
+[node name="Button" unique_id=1621804437 groups=["Buttons"] instance=ExtResource("1_nhor4")]
+transform = Transform3D(0.65, 0, 0, 0, 0.65, 0, 0, 0, 0.65, 0, 0, 0)
+script = ExtResource("2_lc4xp")

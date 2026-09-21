@@ -3,8 +3,15 @@
 [ext_resource type="Texture2D" uid="uid://drwk3gqk0g42k" path="res://citrus_orchard_road_puresky_1k.hdr" id="1_ig7tw"]
 [ext_resource type="Shader" uid="uid://252r74c0jdfm" path="res://water.gdshader" id="2_h2yge"]
 [ext_resource type="Texture2D" uid="uid://dki8rsqjn0rfx" path="res://water_normal_map.png" id="3_1bvp3"]
-[ext_resource type="Script" uid="uid://x7eirg0g71gt" path="res://tfc_controller.gd" id="4_lquwl"]
 [ext_resource type="Script" uid="uid://bjh4xyi5pvjgc" path="res://browser_input_fixes.gd" id="5_7mycd"]
+[ext_resource type="MeshLibrary" uid="uid://bc4822173lj1h" path="res://tiles.tres" id="6_7mycd"]
+[ext_resource type="PackedScene" uid="uid://bvhbacshr1s2y" path="res://Start.tscn" id="7_5vw27"]
+[ext_resource type="PackedScene" uid="uid://bn2bf0h7id6e0" path="res://player.tscn" id="7_272bh"]
+[ext_resource type="PackedScene" uid="uid://c31iw8mxdf37n" path="res://Finish.tscn" id="8_5vw27"]
+[ext_resource type="PackedScene" uid="uid://dfkfes5gy7ye0" path="res://Box.tscn" id="9_kek77"]
+[ext_resource type="Script" uid="uid://2oih4tibyt3s" path="res://game_manager.gd" id="10_dg77c"]
+[ext_resource type="Script" uid="uid://clfd8egbjdomf" path="res://misc.gd" id="11_ycdy4"]
+[ext_resource type="PackedScene" uid="uid://p7r1shsnovkp" path="res://Button.tscn" id="12_dg77c"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_lnab1"]
 panorama = ExtResource("1_ig7tw")
@@ -32,16 +39,48 @@ shader_parameter/uv_tiling = 4.0
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1843992075]
 environment = SubResource("Environment_juj7h")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=968954249]
-size = Vector3(10, 1, 10)
+[node name="Sea" type="CSGBox3D" parent="." unique_id=968954249]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.031090736, -0.58831155, 0.0014461875)
+size = Vector3(50, 1, 50)
 material = SubResource("ShaderMaterial_ig7tw")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=555762770]
 transform = Transform3D(0.8769717, 0.21344519, -0.43053645, 0, 0.8959395, 0.44417608, 0.480542, -0.3895299, 0.7857137, -4.00257, 3.1846793, 7.5481114)
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1909401552]
-transform = Transform3D(-0.86602545, 0, 0.49999994, 0, 1, 0, -0.49999994, 0, -0.86602545, 0, 1.647898, 0)
-script = ExtResource("4_lquwl")
-
 [node name="Node3D" type="Node3D" parent="." unique_id=1596388401]
 script = ExtResource("5_7mycd")
+
+[node name="GridMap" type="GridMap" parent="." unique_id=1524979808]
+mesh_library = ExtResource("6_7mycd")
+cell_size = Vector3(1, 1, 1)
+cell_center_y = false
+data = {
+"cells": PackedInt32Array(65535, 0, 655363, 0, 0, 655363, 65535, 1, 2, 0, 1, 2, 1, 1, 2, 1, 0, 2, 1, 65535, 2, 0, 65535, 655363, 65535, 65535, 655363, 1, 65534, 2, 0, 65534, 2, 65535, 65534, 2, 1, 65533, 655362, 0, 65533, 655362, 65535, 65533, 655362, 1, 2, 655360, 0, 2, 655362, 65535, 2, 1048576, 65535, 65532, 655362, 0, 65532, 655362, 1, 65532, 655362, 0, 3, 655361)
+}
+
+[node name="Player" parent="." unique_id=798286709 instance=ExtResource("7_272bh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7935689, 0.22449803, 2.3199396)
+
+[node name="Start" parent="." unique_id=2118049537 instance=ExtResource("7_5vw27")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.53693354, 0.30179322, 3.494724)
+
+[node name="Finish" parent="." unique_id=836503089 instance=ExtResource("8_5vw27")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.36717606, 0.32841754, -3.3887181)
+
+[node name="default_box" parent="." unique_id=601279781 groups=["Boxes"] instance=ExtResource("9_kek77")]
+transform = Transform3D(0.43, 0, 0, 0, 0.43, 0, 0, 0, 0.43, 0.46645603, 0.20000017, 0.75207305)
+
+[node name="Node3D2" type="Node3D" parent="." unique_id=1946506887]
+script = ExtResource("10_dg77c")
+
+[node name="Node3D3" type="Node3D" parent="." unique_id=2128569420 node_paths=PackedStringArray("player", "sea")]
+script = ExtResource("11_ycdy4")
+player = NodePath("../Player")
+sea = NodePath("../Sea")
+
+[node name="Button" parent="." unique_id=1621804437 instance=ExtResource("12_dg77c")]
+transform = Transform3D(0.65, 0, 0, 0, 0.65, 0, 0, 0, 0.65, 0.37564635, 0.20000029, -0.546582)
+
+[node name="DebugLabel" type="Label" parent="." unique_id=1715080286]
+offset_right = 40.0
+offset_bottom = 23.0
